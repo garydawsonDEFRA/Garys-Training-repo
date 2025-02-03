@@ -1,0 +1,25 @@
+name: Branch Created
+
+on:
+  create:
+    branches:
+      - '**'
+
+jobs:
+  create-file:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Create a file
+      run: echo "Branch created" > branch_created.txt
+
+    - name: Commit and push changes
+      run: |
+        git config --global user.name 'github-actions[bot]'
+        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+        git add branch_created.txt
+        git commit -m 'Add branch created file'
+        git push
